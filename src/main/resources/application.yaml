@@ -1,0 +1,22 @@
+server:
+  port: 8081
+  error:
+    include-message: always
+
+apiBaseUrl:
+  https://api.kinopoisk.dev
+
+apiKey:
+  7TTMP2W-5T8MW0G-QW83Z94-9R5G3YG
+
+spring:
+  datasource:
+    url: jdbc:postgresql://rc1b-y9s9cpvtnyk5plij.mdb.yandexcloud.net:6432/film-match
+    username: doesnotmatter
+    password: doesnotmatter
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    database: postgresql

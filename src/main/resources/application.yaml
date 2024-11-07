@@ -11,9 +11,9 @@ apiKey:
 
 spring:
   datasource:
-    url: jdbc:postgresql://rc1b-y9s9cpvtnyk5plij.mdb.yandexcloud.net:6432/film-match
-    username: doesnotmatter
-    password: doesnotmatter
+    url: jdbc:postgresql://localhost:5432/moviemate
+    username: postgres
+    password:
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:

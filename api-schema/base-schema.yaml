@@ -1,0 +1,18 @@
+components:
+  schemas:
+    LobbyId:
+      type: string
+      nullable: false
+    lobbyId:
+      type: string
+      nullable: false
+    FilmId:
+      type: integer
+      format: int32
+      nullable: false
+    GenreType:
+      type: string
+      nullable: false
+    finishedCount:
+      type: int
+      nullable: false

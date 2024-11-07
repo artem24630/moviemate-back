@@ -1,0 +1,91 @@
+components:
+  schemas:
+    genres:
+      description: Выбранные жанры
+      type: array
+      items:
+        type: string
+
+    film:
+      type: object
+      required: [ lobbyId, code ]
+      properties:
+        filmId:
+          description: Идентификатор фильма
+          $ref: 'base-schema.yaml#/components/schemas/lobbyId'
+        imageUrl:
+          description: Ссылка на картинку
+          type: string
+        name:
+          description: Название
+          type: string
+        description:
+          description: Описание
+          type: string
+        rating_kp:
+          description: Рейтинг Кинопоиска
+          type: string
+        rating_imdb:
+          description: Рейтинг IMDb
+          type: string
+        genres:
+          description: Жанры
+          type: array
+          items:
+            type: string
+        releaseYear:
+          description: Дата выпуска фильма
+          type: string
+        duration:
+          description: Длительность фильма
+          type: string
+
+    filmsList:
+      description: Выбранные жанры
+      type: array
+      items:
+        $ref: '#/components/schemas/film'
+
+    matchResponse:
+      type: object
+      required: [ isMatched ]
+      properties:
+        isMatched:
+          description: был ли метч
+          type: boolean
+        film:
+          description: Сметченный фильм
+          $ref: '#/components/schemas/film'
+
+    lobbyInfo:
+      type: object
+      required: [ lobbyId, code ]
+      properties:
+        lobbyId:
+          description: Идентификатор лобби
+          $ref: 'base-schema.yaml#/components/schemas/lobbyId'
+        code:
+          description: Код для вступления в лобби
+          type: string
+        status:
+          description: Код для вступления в лобби
+          type: string
+        chosenGenres:
+          description: Выбранные жанры
+          type: array
+          items:
+            type: string
+        joinedPersons:
+          description: Список людей в лобби
+          type: array
+          items:
+            type: string
+        isAvailableToStart:
+          description: Можно ли начинать выбор фильмов
+          type: boolean
+        finishedCount:
+          description: Количество юзеров, закончивших выбирать фильмы
+          $ref: 'base-schema.yaml#/components/schemas/finishedCount'
+        matchedFilm:
+          description: Результат лобби
+          $ref: '#/components/schemas/film'

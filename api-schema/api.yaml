@@ -1,0 +1,206 @@
+openapi: 3.0.0
+
+info:
+  description: FilmEntity match Api
+  version: "1.0.0"
+  title: FilmEntity match Api
+
+tags:
+  - name: lobby
+    description: Лобби
+  - name: films
+    description: Фильмы
+
+servers:
+  - url: http://localhost:8081
+
+paths:
+  /v1/lobbies:
+    post:
+      summary: Создание лобби
+      operationId: createLobby
+      tags: [ lobby ]
+      responses:
+        201:
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: 'model-schema.yaml#/components/schemas/lobbyInfo'
+  /v1/lobbies:join:
+    post:
+      summary: Вступление в лобби
+      operationId: joinLobby
+      tags: [ lobby ]
+      parameters:
+        - $ref: 'parameters.yaml#/components/parameters/tokenParam'
+      responses:
+        200:
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: 'model-schema.yaml#/components/schemas/lobbyInfo'
+
+  /v1/lobbies/{lobbyId}:
+    delete:
+      summary: Удаление лобби
+      operationId: deleteLobbyInfo
+      tags: [ lobby ]
+      parameters:
+        - $ref: 'parameters.yaml#/components/parameters/lobbyIdPathParam'
+      responses:
+        200:
+          description: удалено
+    get:
+      summary: Получение информации о лобби
+      operationId: getLobbyInfo
+      tags: [ lobby ]
+      parameters:
+        - $ref: 'parameters.yaml#/components/parameters/lobbyIdPathParam'
+      responses:
+        200:
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: 'model-schema.yaml#/components/schemas/lobbyInfo'
+        419:
+          description: no data
+
+  /v1/lobbies/{lobbyId}/restart:
+    post:
+      summary: Удаление всех выбранных жанров + fallback на статус launched + удаление всей меты
+      operationId: restartLobby
+      tags: [ lobby ]
+      parameters:
+        - $ref: 'parameters.yaml#/components/parameters/lobbyIdPathParam'
+      responses:
+        200:
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: 'model-schema.yaml#/components/schemas/lobbyInfo'
+
+  /v1/lobbies/{lobbyId}/finished:
+    get:
+      summary: Получение о завершенном лобби
+      operationId: getFinishedLobbyInfo
+      tags: [ lobby ]
+      parameters:
+        - $ref: 'parameters.yaml#/components/parameters/lobbyIdPathParam'
+      responses:
+        200:
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: 'model-schema.yaml#/components/schemas/lobbyInfo'
+        419:
+          description: лобби не завершено
+  /v1/lobbies/{lobbyId}/userFinishChoosing:
+    post:
+      summary: Пользователь просмотрел все фильмы
+      operationId: userFinishChoosing
+      tags: [ lobby ]
+      parameters:
+        - $ref: 'parameters.yaml#/components/parameters/lobbyIdPathParam'
+      responses:
+        200:
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: 'model-schema.yaml#/components/schemas/film'
+
+  /v1/lobbies/{lobbyId}/start:
+    post:
+      summary: Меняется состояние лобби и стартует выбор жанров
+      operationId: startLobby
+      tags: [ lobby ]
+      parameters:
+        - $ref: 'parameters.yaml#/components/parameters/lobbyIdPathParam'
+      responses:
+        200:
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: 'model-schema.yaml#/components/schemas/lobbyInfo'
+        400:
+          description: недостаточно юзеров
+
+  /v1/genres:
+    get:
+      summary: Получение всех жанров
+      operationId: getGenres
+      tags: [ genres ]
+      responses:
+        200:
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: 'model-schema.yaml#/components/schemas/genres'
+
+  /v1/lobbies/{lobbyId}/sessions:
+    post:
+      summary: Сохранение жанров (при сейве последнего меняем статус лобби на genresChosen)
+      operationId: saveGenresForLobby
+      tags: [ lobby ]
+      parameters:
+        - $ref: 'parameters.yaml#/components/parameters/lobbyIdPathParam'
+        - $ref: 'parameters.yaml#/components/parameters/genresListQueryParam'
+      responses:
+        200:
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: 'model-schema.yaml#/components/schemas/lobbyInfo'
+
+  /v1/lobbies/{lobbyId}/films:
+    get:
+      summary: Получение всех фильмов из сессии
+      operationId: getAllFilmsForLobby
+      tags: [ films ]
+      parameters:
+        - $ref: 'parameters.yaml#/components/parameters/lobbyIdPathParam'
+      responses:
+        200:
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: 'model-schema.yaml#/components/schemas/filmsList'
+
+  /v1/lobbies/{lobbyId}/films/{filmId}:
+    post:
+      summary: Добавление отметки мне нравится
+      operationId: likeFilm
+      tags: [ lobby ]
+      parameters:
+        - $ref: 'parameters.yaml#/components/parameters/lobbyIdPathParam'
+        - $ref: 'parameters.yaml#/components/parameters/filmIdPathParam'
+      responses:
+        200:
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: 'model-schema.yaml#/components/schemas/film'
+    delete:
+      summary: Удаление отметки мне нравится
+      operationId: deleteLike
+      tags: [ lobby ]
+      parameters:
+        - $ref: 'parameters.yaml#/components/parameters/lobbyIdPathParam'
+        - $ref: 'parameters.yaml#/components/parameters/filmIdPathParam'
+      responses:
+        200:
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: 'model-schema.yaml#/components/schemas/film'

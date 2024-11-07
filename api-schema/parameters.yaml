@@ -1,0 +1,35 @@
+components:
+  parameters:
+    lobbyIdPathParam:
+      name: lobbyId
+      in: path
+      description: Идентификатор лобби
+      required: true
+      schema:
+        $ref: 'base-schema.yaml#/components/schemas/lobbyId'
+
+    tokenParam:
+      name: token
+      in: query
+      description: Токен для вступления в лобби
+      required: true
+      schema:
+        $ref: 'base-schema.yaml#/components/schemas/lobbyId'
+
+    filmIdPathParam:
+      name: filmId
+      in: path
+      description: Идентификаторы персон разделенные запятой
+      required: true
+      schema:
+        $ref: 'base-schema.yaml#/components/schemas/FilmId'
+
+    genresListQueryParam:
+      name: ids
+      in: query
+      description: Идентификаторы жанров разделенные запятой
+      required: true
+      schema:
+        type: array
+        items:
+          $ref: 'base-schema.yaml#/components/schemas/GenreType'

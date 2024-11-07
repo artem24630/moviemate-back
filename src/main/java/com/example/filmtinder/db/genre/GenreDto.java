@@ -1,4 +1,3 @@
-// This file was automatically generated.
 package com.example.filmtinder.db.genre;
 
 import com.example.filmtinder.db.DBEntityDto;

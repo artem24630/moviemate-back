@@ -31,7 +31,7 @@ public class FilmDto implements DBEntityDto {
     private Float rating_imdb;
 
     @Min(1900)
-    @Max(2023)
+    @Max(2024)
     private Integer release_year;
 
     @Min(60)

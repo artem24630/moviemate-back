@@ -5,6 +5,9 @@
 **MovieMate: Watch Together** позволяет двум людям, находящимся рядом,
 выбрать кино для совместного досуга.
 
+[Видео-презентация](https://disk.yandex.ru/d/2hgxUALmLd4fIQ)<br>
+[Презентация](https://docs.google.com/presentation/d/1BF1rZZe5X0MjMT2s9wwvjVFb_E5W_osR/edit?usp=sharing&ouid=109217328439205395137&rtpof=true&sd=true)
+
 ## Стек
 
 - Spring:
